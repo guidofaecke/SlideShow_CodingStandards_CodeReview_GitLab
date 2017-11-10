@@ -1,49 +1,647 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+<!-- Printing and PDF exports -->
+<script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css'
+            : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>
+                    <span class="doctrine-color">Coding Standards</span>
+                </h2>
+                <h2>
+                    <span class="zf-color">Code Reviews</span>
+                </h2>
+                <h2>
+                    <span class="php-color">GitLab</span>
+                </h2>
+            </section>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+            <section>
+                <h1>
+                    <span class="doctrine-color">Coding</span>
+                </h1>
+                <h1>
+                    <span class="doctrine-color">Standards</span>
+                </h1>
+                <aside class="notes">let's get started with
+                    coding standards</aside>
+            </section>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+            <section>
+                <h3>
+                    What are coding standards in <span class="php-color">PHP</span>?
+                </h3>
+                <p>
+                    <span class="fragment" data-fragment-index="1">
+                        PSR-1 </span>
+                </p>
+                <p>
+                    <span class="fragment" data-fragment-index="2">
+                        PSR-2 </span>
+                </p>
+                <aside class="notes">also refered to as codyng
+                    styles. these coding standards are defined by the
+                    php framework interop group - short PHP-FIG. you
+                    will find more information on www.php-fig.org</aside>
+            </section>
+
+            <section>
+                <h1>
+                    <span class="zf-color">PSR-1</span>
+                </h1>
+                Basic Coding Standard
+            </section>
+
+            <section>
+                <h3>Overview</h3>
+                <ul>
+                    <li>Files MUST use only <code>&lt;?php</code>
+                        and <code>&lt;?=</code> tags.
+                    </li>
+                    <li>Namespaces and classes MUST follow an
+                        “autoloading” PSR: [<code>PSR-0, PSR-4</code>].
+                    </li>
+                    <li>Class names MUST be declared in <code
+                            class="doctrine-bg doctrine-color">StudlyCaps</code>.
+                    </li>
+                    <li>Class constants MUST be declared in all
+                        upper case with underscore separators.</li>
+                    <li>Method names MUST be declared in <code
+                            class="doctrine-bg doctrine-color">camelCase</code>.
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <pre>
+                    <code data-noexscape>
+// side effect: change ini settings
+ini_set('error_reporting', E_ALL);
+
+// side effect: loads a file
+include "file.php";
+
+// side effect: generates output
+echo "<html>\n";
+
+// declaration
+function foo()
+{
+    // function body
+}
+
+
+                    </code>
+                </pre>
+                <aside class="notes">good example for how NOT to
+                    do it</aside>
+            </section>
+
+            <section>
+                <pre>
+                    <code data-noexscape>
+// declaration
+function foo()
+{
+    // function body
+}
+
+// conditional declaration is *not* a side effect
+if (! function_exists('bar')) {
+    function bar()
+    {
+        // function body
+    }
+}
+                </code>
+                </pre>
+                <aside class="notes">only declarations,
+                    therefore acceptable</aside>
+            </section>
+
+            <section>
+                <h3>Namespaces and Class Names</h3>
+                <ul>
+                    <li>Namespaces and classes MUST follow an
+                        “autoloading” PSR: [<code>PSR-0, PSR-4</code>].
+                    </li>
+                    <li>This means each class is in a file by
+                        itself, and is in a namespace of at least one
+                        level: a top-level vendor name.</li>
+                    <li>Class names MUST be declared in <code
+                            class="doctrine-bg doctrine-color">StudlyCaps</code>.
+                    </li>
+                    <li>Code written for PHP 5.3 and after MUST use
+                        formal namespaces.</li>
+                </ul>
+                <aside class="notes">PHP 5.3 was released in
+                    2009 and replace by 5.4 in 2012. nobody should use
+                    it by now</aside>
+            </section>
+
+            <section>
+                <pre>
+                    <code>
+// PHP 5.3 and later:
+namespace Vendor\Model;
+
+class Foo
+{
+    }           </code>
+                </pre>
+                <aside class="notes">the namespace</aside>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="doctrine-color">Class Constants,</span>
+                    <span class="zf-color">Properties,</span> <span
+                        class="php-color">and Methods</span>
+                </h2>
+                The term "class" refers to all classes, interfaces, and
+                traits
+            </section>
+
+            <section>
+                <h2>
+                    <span class="zf-color">Constants</span>
+                </h2>
+                Class constants MUST be declared in all upper case with
+                underscore separators.
+                <pre>
+                    <code>
+namespace Vendor\Model;
+
+class Foo
+{
+    const VERSION = '1.0';
+    const DATE_APPROVED = '2012-06-01';
+}                </code>
+                </pre>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="php-color">Properties</span>
+                </h2>
+                PHP-FIG intentionally avoids any recommendation
+                regarding the use of
+                <code>$StudlyCaps</code>
+                ,
+                <code>$camelCase</code>
+                , or
+                <code>$under_score</code>
+                property names.
+                <p>
+                    However, the overall best-practice, as adoptet by
+                    all our applications, is
+                    <code>$camelCase</code>
+                    .
+            </section>
+
+            <section>
+                <h2>
+                    <span class="doctrine-color">Methods</span>
+                </h2>
+                Method names MUST be declared in
+                <code>camelCase()</code>
+                .
+            </section>
+
+            <section>
+                <h1>
+                    <span class="zf-color">PSR-2</span>
+                </h1>
+                Coding Style Guide
+            </section>
+
+            <section>
+                <p>PSR-2 extends and expands on PSR-1, the basic
+                    coding standard.</p>
+                <p>The intent is to reduce cognitive friction when
+                    scanning code from different authors. It does so by
+                    enumerating a shared set of rules and expectations
+                    about how to format PHP code.</p>
+                <p>When various authors collaborate across multiple
+                    projects, it helps to have one set of guidelines to
+                    be used among all those projects. The benefit is not
+                    in the rules themselves, but in the sharing of those
+                    rules.</p>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="doctrine-color">Overview</span>
+                </h3>
+                <ul style="font-size: 90%;">
+                    <li>Code MUST follow a “coding style guide” PSR
+                        [<code>PSR-1</code>].
+                    </li>
+                    <li>Code MUST use 4 spaces for indenting, not
+                        tabs.</li>
+                    <li>There MUST NOT be a hard limit on line
+                        length; the soft limit MUST be 120 characters;
+                        lines SHOULD be 80 characters or less.</li>
+                    <li>There MUST be one blank line after the <code
+                            class="doctrine-bg doctrine-color">namespace</code>
+                        declaration, and there MUST be one blank line
+                        after the block of <code
+                            class="doctrine-bg doctrine-color">use</code>
+                        declarations.
+                    </li>
+                    <li>Opening braces for classes MUST go on the
+                        next line, and closing braces MUST go on the
+                        next line after the body.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="doctrine-color">Overview</span>
+                </h3>
+                <ul style="font-size: 90%;">
+                    <li>Opening braces for methods MUST go on the
+                        next line, and closing braces MUST go on the
+                        next line after the body.</li>
+                    <li>Visibility MUST be declared on all
+                        properties and methods; <code
+                            class="doctrine-bg doctrine-color">abstract</code>
+                        and <code class="doctrine-bg doctrine-color">final</code>
+                        MUST be declared before the visibility; <code
+                            class="doctrine-bg doctrine-color">static</code>
+                        MUST be declared after the visibility.
+                    </li>
+                    <li>Control structure keywords MUST have one
+                        space after them; method and function calls MUST
+                        NOT.</li>
+                    <li>Opening braces for control structures MUST
+                        go on the same line, and closing braces MUST go
+                        on the next line after the body.</li>
+                    <li>Opening parentheses for control structures
+                        MUST NOT have a space after them, and closing
+                        parentheses for control structures MUST NOT have
+                        a space before.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="php-color">Example</span>
+                </h3>
+                <pre style="font-size: 50%;">
+                    <code>
+&lt;?php
+namespace Vendor\Package;
+
+use FooInterface;
+use BarClass as Bar;
+use OtherVendor\OtherPackage\BazClass;
+
+class Foo extends Bar implements FooInterface
+{
+    public function sampleMethod($a, $b = null)
+    {
+        if ($a === $b) {
+            bar();
+        } elseif ($a > $b) {
+            $foo->bar($arg1);
+        } else {
+            BazClass::bar($arg2, $arg3);
+        }
+    }
+
+    final public static function bar()
+    {
+        // method body
+    }
+}
+                </code>
+                </pre>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="zf-color">General ...</span>
+                </h2>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="zf-color">Basic Coding Standard</span>
+                </h2>
+                Code MUST follow all rules outlined in
+                <code>PSR-1</code>
+                .
+            </section>
+
+            <section>
+                <h2>
+                    <span class="zf-color">Files</span>
+                </h2>
+                <p style="text-align: left; display: block;">
+                    All PHP files MUST use the Unix LF (linefeed) line
+                    ending.<br> All PHP files MUST end with a
+                    single blank line.<br> The closing
+                    <code>?></code>
+                    tag MUST be omitted from files containing only PHP.
+                </p>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="zf-color">Lines</span>
+                </h2>
+                <ul style="font-size: 90%;">
+                    <li>There MUST NOT be a hard limit on line
+                        length.</li>
+                    <li>The soft limit on line length MUST be 120
+                        characters; automated style checkers MUST warn
+                        but MUST NOT error at the soft limit.</li>
+                    <li>Lines SHOULD NOT be longer than 80
+                        characters; lines longer than that SHOULD be
+                        split into multiple subsequent lines of no more
+                        than 80 characters each.</li>
+                    <li>There MUST NOT be trailing whitespace at
+                        the end of non-blank lines.</li>
+                    <li>Blank lines MAY be added to improve
+                        readability and to indicate related blocks of
+                        code.</li>
+                    <li>There MUST NOT be more than one statement
+                        per line.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="zf-color">Indenting</span>
+                </h2>
+                <ul style="font-size: 90%;">
+                    <li>Code MUST use an indent of 4 spaces, and
+                        MUST NOT use tabs for indenting.</li>
+                    <li>N.b.: Using only spaces, and not mixing
+                        spaces with tabs, helps to avoid problems with
+                        diffs, patches, history, and annotations. The
+                        use of spaces also makes it easy to insert
+                        fine-grained sub-indentation for inter-line
+                        alignment.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="zf-color">Keywords and
+                        True/False/Null</span>
+                </h2>
+                <ul style="font-size: 90%;">
+                    <li>PHP keywords MUST be in lower case.</li>
+                    <li>The PHP constants <code class="doctrine-bg">true</code>,
+                        <code class="doctrine-bg">false</code>, and <code
+                            class="doctrine-bg">null</code> MUST be in
+                        lower case.
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">Namespace and Use Declarations</span>
+                </h3>
+                <ul style="font-size: 90%;">
+                    <li>When present, there MUST be one blank line after the namespace declaration.</li>
+                    <li>When present, all use declarations MUST go after the namespace declaration.</li>
+                    <li>There MUST be one use keyword per declaration.</li>
+                    <li>There MUST be one blank line after the use block.</li>
+                </ul>
+                <pre><code>
+&lt;?php
+namespace Vendor\Package;
+
+use FooClass;
+use BarClass as Bar;
+use OtherVendor\OtherPackage\BazClass;
+
+// ... additional PHP code ...
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>
+                    <span class="php-color">Classes, Properties, and Methods</span>
+                </h2>
+                The term "class" refers to all classes, interfaces, and traits.
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">Extends and Implements</span>
+                </h3>
+                The extends and implements keywords MUST be declared on the same line as the class name.
+                <p>The opening brace for the class MUST go on its own line; the closing brace for the class MUST go on the next line after the body.
+            </section>
+
+            <section>
+                <pre style="font-size: 60%;"><code>
+&lt;?php
+namespace Vendor\Package;
+
+use FooClass;
+use BarClass as Bar;
+use OtherVendor\OtherPackage\BazClass;
+
+class ClassName extends ParentClass implements \ArrayAccess, \Countable
+{
+    // constants, properties, methods
+}
+                </code></pre>
+            </section>
+
+            <section>
+            Lists of implements MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line.
+                <pre style="font-size: 60%;"><code>
+&lt;?php
+namespace Vendor\Package;
+
+use FooClass;
+use BarClass as Bar;
+use OtherVendor\OtherPackage\BazClass;
+
+class ClassName extends ParentClass implements
+    \ArrayAccess,
+    \Countable,
+    \Serializable
+{
+    // constants, properties, methods
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3><span class="doctrine-color">Properties</span></h3>
+                <p>
+                    Visibility MUST be declared on all properties.<br><br>
+                    The var keyword MUST NOT be used to declare a property.<br><br>
+                    There MUST NOT be more than one property declared per statement.<br><br>
+                    Property names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility.
+                </p>
+            </section>
+
+            <section>
+                A property declaration looks like the following.
+                <pre><code>
+&lt;?php
+namespace Vendor\Package;
+
+class ClassName
+{
+    public $foo = null;
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3><span class="doctrine-color">Methods</span></h3>
+                <p style="font-size: 90%;">
+                    Visibility MUST be declared on all methods.<br><br>
+                    Method names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility.<br><br>
+                    Method names MUST NOT be declared with a space after the method name.<br>The opening brace MUST go on its own line, and the closing brace MUST go on the next line following the body.<br>There MUST NOT be a space after the opening parenthesis, and there MUST NOT be a space before the closing parenthesis.<br><br>
+                </p>
+            </section>
+
+            <section>
+            A method declaration looks like the following. Note the placement of parentheses, commas, spaces, and braces:
+                <pre style="font-size: 60%;"><code>
+&lt;?php
+namespace Vendor\Package;
+
+class ClassName
+{
+    public function fooBarBaz($arg1, &$arg2, $arg3 = [])
+    {
+        // method body
+    }
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3><span class="doctrine-color">Methods Arguments</span></h3>
+                <p style="font-size: 90%;">
+                    In the argument list, there MUST NOT be a space before each comma, and there MUST be one space after each comma.<br><br>
+                    Method arguments with default values MUST go at the end of the argument list.<br><br>
+                </p>
+            </section>
+
+            <section>
+                <pre style="font-size: 60%;"><code>
+&lt;?php
+namespace Vendor\Package;
+
+class ClassName
+{
+    public function foo($arg1, &$arg2, $arg3 = [])
+    {
+        // method body
+    }
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <p style="font-size: 90%;">
+                    Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.<br><br>
+                    When the argument list is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.<br><br>
+                </p>
+            </section>
+
+            <section>
+                <pre style="font-size: 60%;"><code>
+&lt;?php
+namespace Vendor\Package;
+
+class ClassName
+{
+    public function aVeryLongMethodName(
+        ClassTypeHint $arg1,
+        &$arg2,
+        array $arg3 = []
+    ) {
+        // method body
+    }
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">abstract, final, and static</span>
+                </h3>
+                When present, the <code class="doctrine-bg">abstract</code> and <code class="doctrine-bg">final</code> declarations MUST precede the visibility declaration.
+                <pre><code>
+&lt;?php
+namespace Vendor\Package;
+
+abstract class ClassName
+{
+    protected static $foo;
+
+    abstract protected function zim();
+
+    final public static function bar()
+    {
+        // method body
+    }
+}                </code></pre>
+            </section>
+
+        </div>
+    </div>
+    <!-- <aside class="notes">by green-screen i mean RPG - with or without profound, CL, command-line and SQL</aside> -->
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+                    // More info about config & dependencies:
+                    // - https://github.com/hakimel/reveal.js#configuration
+                    // - https://github.com/hakimel/reveal.js#dependencies
+                    Reveal.initialize({
+                        dependencies : [ {
+                            src : 'plugin/markdown/marked.js'
+                        }, {
+                            src : 'plugin/markdown/markdown.js'
+                        }, {
+                            src : 'plugin/notes/notes.js',
+                            async : true
+                        }, {
+                            src : 'plugin/highlight/highlight.js',
+                            async : true,
+                            callback : function() {
+                                hljs.initHighlightingOnLoad();
+                            }
+                        } ]
+                    });
+                </script>
+</body>
 </html>
