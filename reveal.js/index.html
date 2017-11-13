@@ -95,8 +95,8 @@
             </section>
 
             <section>
-                <pre>
-                    <code data-noexscape>
+                <pre><code>
+&lt;?php
 // side effect: change ini settings
 ini_set('error_reporting', E_ALL);
 
@@ -104,24 +104,21 @@ ini_set('error_reporting', E_ALL);
 include "file.php";
 
 // side effect: generates output
-echo "<html>\n";
+echo "&lt;html>\n";
 
 // declaration
 function foo()
 {
     // function body
 }
-
-
-                    </code>
-                </pre>
+                </code></pre>
                 <aside class="notes">good example for how NOT to
                     do it</aside>
             </section>
 
             <section>
-                <pre>
-                    <code data-noexscape>
+                <pre><code>
+&lt;?php
 // declaration
 function foo()
 {
@@ -135,8 +132,7 @@ if (! function_exists('bar')) {
         // function body
     }
 }
-                </code>
-                </pre>
+                </code></pre>
                 <aside class="notes">only declarations,
                     therefore acceptable</aside>
             </section>
@@ -162,15 +158,15 @@ if (! function_exists('bar')) {
             </section>
 
             <section>
-                <pre>
-                    <code>
+                <pre><code>
+&lt;?php
 // PHP 5.3 and later:
 namespace Vendor\Model;
 
 class Foo
 {
-    }           </code>
-                </pre>
+}
+                </code></pre>
                 <aside class="notes">the namespace</aside>
             </section>
 
@@ -190,16 +186,16 @@ class Foo
                 </h2>
                 Class constants MUST be declared in all upper case with
                 underscore separators.
-                <pre>
-                    <code>
+                <pre><code>
+&lt;?php
 namespace Vendor\Model;
 
 class Foo
 {
     const VERSION = '1.0';
     const DATE_APPROVED = '2012-06-01';
-}                </code>
-                </pre>
+}
+               </code></pre>
             </section>
 
             <section>
@@ -310,8 +306,7 @@ class Foo
                 <h3>
                     <span class="php-color">Example</span>
                 </h3>
-                <pre style="font-size: 50%;">
-                    <code>
+                <pre style="font-size: 50%;"><code>
 &lt;?php
 namespace Vendor\Package;
 
@@ -337,8 +332,7 @@ class Foo extends Bar implements FooInterface
         // method body
     }
 }
-                </code>
-                </pre>
+                </code></pre>
             </section>
 
             <section>
@@ -537,7 +531,7 @@ namespace Vendor\Package;
 
 class ClassName
 {
-    public function fooBarBaz($arg1, &$arg2, $arg3 = [])
+    public function fooBarBaz($arg1, &amp;$arg2, $arg3 = [])
     {
         // method body
     }
@@ -560,7 +554,7 @@ namespace Vendor\Package;
 
 class ClassName
 {
-    public function foo($arg1, &$arg2, $arg3 = [])
+    public function foo($arg1, &amp;$arg2, $arg3 = [])
     {
         // method body
     }
@@ -584,7 +578,7 @@ class ClassName
 {
     public function aVeryLongMethodName(
         ClassTypeHint $arg1,
-        &$arg2,
+        &amp;$arg2,
         array $arg3 = []
     ) {
         // method body
@@ -613,6 +607,282 @@ abstract class ClassName
         // method body
     }
 }                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">Method and Function Calls</span>
+                </h3>
+                <p style="font-size: 85%;">
+                When making a method or function call, there MUST NOT be a space between the method or function name and the opening parenthesis, there MUST NOT be a space after the opening parenthesis, and there MUST NOT be a space before the closing parenthesis. In the argument list, there MUST NOT be a space before each comma, and there MUST be one space after each comma.
+                </p>
+                <pre><code>
+&lt;?php
+bar();
+$foo->bar($arg1);
+Foo::bar($arg2, $arg3);
+                </code></pre>
+            </section>
+
+            <section>
+                <p style="font-size: 85%;">
+                Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.
+                </p>
+                <pre><code>
+&lt;?php
+$foo->bar(
+    $longArgument,
+    $longerArgument,
+    $muchLongerArgument
+);
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">Control Structures</span>
+                </h3>
+                <p style="font-size: 80%;">The general style rules for control structures are as follows:</p>
+                <ul style="font-size: 80%;">
+                    <li>There MUST be one space after the control structure keyword</li>
+                    <li>There MUST NOT be a space after the opening parenthesis</li>
+                    <li>There MUST NOT be a space before the closing parenthesis</li>
+                    <li>There MUST be one space between the closing parenthesis and the opening brace</li>
+                    <li>The structure body MUST be indented once</li>
+                    <li>The closing brace MUST be on the next line after the body</li>
+                </ul>
+                <p style="font-size: 80%;">The body of each structure MUST be enclosed by braces. This standardizes how the structures look, and reduces the likelihood of introducing errors as new lines get added to the body.</p>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">if, elseif, else</span>
+                </h3>
+                <p style="font-size: 85%;">
+                An <code class="doctrine-bg">if</code> structure looks like the following. Note the placement of parentheses, spaces, and braces; and that <code class="doctrine-bg">else</code> and <code class="doctrine-bg">elseif</code> are on the same line as the closing brace from the earlier body.
+                </p>
+                <pre><code>
+&lt;?php
+if ($expr1) {
+    // if body
+} elseif ($expr2) {
+    // elseif body
+} else {
+    // else body;
+}
+                </code></pre>
+                <p style="font-size: 85%;">
+                The keyword <code class="doctrine-bg">elseif</code> SHOULD be used instead of <code class="doctrine-bg">else if</code> so that all control keywords look like single words.
+                </p>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">switch, case</span>
+                </h3>
+                <p style="font-size: 60%">
+                A <code class="doctrine-bg">switch</code> structure looks like the following. Note the placement of parentheses, spaces, and braces. The <code class="doctrine-bg">case</code> statement MUST be indented once from <code class="doctrine-bg">switch</code>, and the <code class="doctrine-bg">break</code> keyword (or other terminating keyword) MUST be indented at the same level as the <code class="doctrine-bg">case</code> body. There MUST be a comment such as <code class="doctrine-bg">// no break</code> when fall-through is intentional in a non-empty <code class="doctrine-bg">case</code> body.
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+switch ($expr) {
+    case 0:
+        echo 'First case, with a break';
+        break;
+    case 1:
+        echo 'Second case, which falls through';
+        // no break
+    case 2:
+    case 3:
+    case 4:
+        echo 'Third case, return instead of break';
+        return;
+    default:
+        echo 'Default case';
+        break;
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">while, do while</span>
+                </h3>
+                <p style="font-size: 60%">
+                A <code class="doctrine-bg">while</code> statement looks like the following. Note the placement of parentheses, spaces, and braces.
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+while ($expr) {
+    // structure body
+}
+                </code></pre>
+                <p style="font-size: 60%">
+                Similarly, a <code class="doctrine-bg">do while</code> statement looks like the following. Note the placement of parentheses, spaces, and braces.
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+do {
+    // structure body;
+} while ($expr);
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">for</span>
+                </h3>
+                <p style="font-size: 60%">
+                A <code class="doctrine-bg">for</code> statement looks like the following. Note the placement of parentheses, spaces, and braces.
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+for ($i = 0; $i &lt; 10; $i++) {
+    // for body
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">foreach</span>
+                </h3>
+                <p style="font-size: 60%">
+                A <code class="doctrine-bg">foreach</code> statement looks like the following. Note the placement of parentheses, spaces, and braces.
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+foreach ($iterable as $key => $value) {
+    // foreach body
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">try, catch</span>
+                </h3>
+                <p style="font-size: 60%">
+                A <code class="doctrine-bg">try catch</code> block looks like the following. Note the placement of parentheses, spaces, and braces.
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+try {
+    // try body
+} catch (FirstExceptionType $e) {
+    // catch body
+} catch (OtherExceptionType $e) {
+    // catch body
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>
+                    <span class="zf-color">Closures</span>
+                </h3>
+                <p style="font-size: 80%; text-align: left;">
+                Closures MUST be declared with a space after the <code class="doctrine-bg">function</code> keyword, and a space before and after the <code class="doctrine-bg">use</code> keyword.
+                <br><br>
+                The opening brace MUST go on the same line, and the closing brace MUST go on the next line following the body.
+                <br><br>
+                There MUST NOT be a space after the opening parenthesis of the argument list or variable list, and there MUST NOT be a space before the closing parenthesis of the argument list or variable list.
+                <br><br>
+                In the argument list and variable list, there MUST NOT be a space before each comma, and there MUST be one space after each comma.
+                <br><br>
+                Closure arguments with default values MUST go at the end of the argument list.
+                </p>
+            </section>
+
+            <section>
+                <p style="font-size: 60%">
+                A closure declaration looks like the following. Note the placement of parentheses, commas, spaces, and braces:
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+$closureWithArgs = function ($arg1, $arg2) {
+    // body
+};
+
+$closureWithArgsAndVars = function ($arg1, $arg2) use ($var1, $var2) {
+    // body
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <p style="font-size: 80%; text-align: left;">
+                Argument lists and variable lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument or variable per line.
+                <br><br>
+                When the ending list (whether of arguments or variables) is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them.                </p>
+            </section>
+
+            <section>
+                <p style="font-size: 60%">
+                The following are examples of closures with and without argument lists and variable lists split across multiple lines.
+                </p>
+                <pre style="font-size: 30%;"><code>
+&lt;?php
+$longArgs_noVars = function (
+    $longArgument,
+    $longerArgument,
+    $muchLongerArgument
+) {
+    // body
+};
+
+$noArgs_longVars = function () use (
+    $longVar1,
+    $longerVar2,
+    $muchLongerVar3
+) {
+    // body
+};
+
+$longArgs_longVars = function (
+    $longArgument,
+    $longerArgument,
+    $muchLongerArgument
+) use (
+    $longVar1,
+    $longerVar2,
+    $muchLongerVar3
+) {
+    // body
+};
+
+$longArgs_shortVars = function (
+    $longArgument,
+    $longerArgument,
+    $muchLongerArgument
+) use ($var1) {
+    // body
+};
+
+$shortArgs_longVars = function ($arg) use (
+    $longVar1,
+    $longerVar2,
+    $muchLongerVar3
+) {
+    // body
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <p style="font-size: 60%">
+                Note that the formatting rules also apply when the closure is used directly in a function or method call as an argument.
+                </p>
+                <pre style="font-size: 50%;"><code>
+&lt;?php
+$foo->bar(
+    $arg1,
+    function ($arg2) use ($var1) {
+        // body
+    },
+    $arg3
+);
+                </code></pre>
             </section>
 
         </div>
